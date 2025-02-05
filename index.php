@@ -11,7 +11,7 @@
     <div class="container">
         <h1>Lista de Tarefas</h1>
 
-        <form action="add_task.php" method="post">
+        <form action="./add_task.php" method="POST">
             <input type="text" name="task" placeholder="Digite a tarefa">
             <button type="submit">Adicionar</button>
         </form>
