@@ -1,7 +1,7 @@
 <?php
     $host = "localhost";
     $usuario = "root";
-    $senha = "chance";
+    $senha = "";
     $db = "todo_list";
 
     //criar conexao
