@@ -18,28 +18,18 @@
         <ul class="task-list">
             <?php
             include 'config.php';
-
             $sql = "SELECT * FROM tasks ORDER BY id DESC";
             $result = $conn->query($sql);
+            while ($row = $result->fetch_assoc()) {
+                $taskStatus = $row['status'] == 'pendente' ? '✔️ Concluir' : '↩️ Reabrir';
+                $taskStyle = $row['status'] == 'concluido' ? 'style="text-decoration: line-through; color: gray;"' : '';
 
-            // Verifica se há tarefas no banco de dados
-            if ($result->num_rows > 0) {
-                // Usa um array para evitar exibir tarefas duplicadas
-                $tarefas_exibidas = [];
-
-                while ($row = $result->fetch_assoc()) {
-                    if (!in_array($row['task'], $tarefas_exibidas)) {
-                        echo "<li>
-                                {$row['task']}  
-                                <a href='edit_task.php?id={$row['id']}' class='edit'>✏️ Editar</a>  
-                                <a href='delete_task.php?id={$row['id']}' class='delete'>❌ Excluir</a>
-                              </li>";
-
-                        $tarefas_exibidas[] = $row['task']; // Adiciona ao array para evitar repetição
-                    }
-                }
-            } else {
-                echo "<li>Nenhuma tarefa encontrada.</li>";
+                echo "<li $taskStyle>
+                        {$row['task']} 
+                        <a href='update_status.php?id={$row['id']}' class='status-btn'>$taskStatus</a> 
+                        <a href='edit_task.php?id={$row['id']}' class='edit'>✏️Editar</a> 
+                        <a href='delete_task.php?id={$row['id']}' class='delete'>❌Excluir</a>
+                      </li>";
             }
             ?>
         </ul>
